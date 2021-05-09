@@ -2,8 +2,9 @@
 
 .card {
   @include flex(column, center, center, nowrap);
-  max-width: 87px;
-  max-height: 30px;
+  width: 87px;
+  height: 30px;
   background-color: #FAC539;
   border-radius: 8px;
+  color: #000000;
 }

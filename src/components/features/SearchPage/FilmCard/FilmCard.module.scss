@@ -1,24 +1,58 @@
 @import '../../../../common/scss/mixins';
 
 .filmCardContainer {
-  @include flex(row, space-between, center, nowrap);
   max-width: 555px;
   max-height: 171px;
   padding: 15px;
-  opacity: 0.8;
   border-radius: 10px;
+  background-color: rgba(17, 17, 17, 0.8);
+
+  .cardInner {
+    @include flex(row, space-between, flex-start, nowrap);
+
+    .image {
+      width: 95px;
+      height: 141px;
+      border-radius: 8px;
+      @include bgSettings();
+    }
+
+    .aboutFilm {
+      display: flex;
+
+      padding: 15px 20px 8px;
+
+      .descriptionContainer {
+
+        display: none;
+        @include flex(row, space-between, center, wrap);
+
+        .genres {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 17px;
+        }
+
+        .awards {
+          position: relative;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 15px;
+          &::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transform: rotate(0.5turn);
+          }
+        }
+      }
+
+      .ratingContainer {
+
+      }
+    }
+  }
 }
 
-.imageContainer {
-  max-width: 95px;
-  max-height: 141px;
-  border-radius: 8px;
-}
 
-.descriptionContainer {
-  @include flex(row, space-between, center, wrap);
-}
-
-.ratingContainer {
-
-}
