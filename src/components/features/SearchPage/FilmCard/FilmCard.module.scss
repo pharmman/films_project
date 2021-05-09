@@ -1,0 +1,24 @@
+@import '../../../../common/scss/mixins';
+
+.filmCardContainer {
+  @include flex(row, space-between, center, nowrap);
+  max-width: 555px;
+  max-height: 171px;
+  padding: 15px;
+  opacity: 0.8;
+  border-radius: 10px;
+}
+
+.imageContainer {
+  max-width: 95px;
+  max-height: 141px;
+  border-radius: 8px;
+}
+
+.descriptionContainer {
+  @include flex(row, space-between, center, wrap);
+}
+
+.ratingContainer {
+
+}
