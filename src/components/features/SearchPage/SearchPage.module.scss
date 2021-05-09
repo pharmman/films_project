@@ -1,0 +1,10 @@
+@import '../../../common/scss/mixins';
+
+.searchPage {
+  height: 100vh;
+}
+
+.container {
+  @include container();
+  @include flex(column, flex-start, center, wrap);
+}

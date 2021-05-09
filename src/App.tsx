@@ -1,12 +1,13 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import './App.css'
+import {SearchPage} from './components/features/SearchPage/SearchPage'
 
 function App() {
-  return (
-    <div className="App">
-
-    </div>
-  );
+    return (
+        <div>
+            <SearchPage/>
+        </div>
+    )
 }
 
-export default App;
+export default App
