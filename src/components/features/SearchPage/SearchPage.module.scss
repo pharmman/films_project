@@ -8,3 +8,15 @@
   @include container();
   @include flex(column, flex-start, center, wrap);
 }
+
+.title {
+  margin: 200px 0 40px 0;
+}
+
+.secondTitle {
+  margin: 0;
+}
+
+.form {
+  margin: 80px 0 20px ;
+}

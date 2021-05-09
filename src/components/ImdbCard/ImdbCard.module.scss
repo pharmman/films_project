@@ -1,0 +1,8 @@
+@import '../../common/scss/mixins';
+
+.card {
+  @include flex(column, center, center, nowrap);
+  max-width: 87px;
+  max-height: 30px;
+  background-color: #FAC539;
+}
