@@ -69,6 +69,10 @@ const Input = styled.input`
   border-radius: 20px;
   border: none;
   outline: transparent;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  letter-spacing: 0;
 `
 
 const Button = styled.button`
