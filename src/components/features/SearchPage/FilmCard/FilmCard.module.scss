@@ -1,4 +1,4 @@
-@import '../../../../common/scss/mixins';
+@import '../../../../common/styles/mixins';
 
 .filmCardContainer {
   max-width: 555px;
@@ -6,16 +6,8 @@
   padding: 15px;
   border-radius: 10px;
   background-color: rgba(17, 17, 17, 0.8);
+  @include flex(row, space-between, flex-start, nowrap);
 
-  .cardInner {
-    @include flex(row, space-between, flex-start, nowrap);
-
-    .image {
-      width: 95px;
-      height: 141px;
-      border-radius: 8px;
-      @include bgSettings();
-    }
 
     .aboutFilm {
       display: flex;
@@ -31,6 +23,7 @@
           font-size: 14px;
           font-weight: 400;
           line-height: 17px;
+          margin-bottom: 30px;
         }
 
         .awards {
@@ -41,6 +34,7 @@
           &::before {
             content: '';
             position: absolute;
+            top: -15px;
             width: 100%;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transform: rotate(0.5turn);
@@ -52,7 +46,6 @@
 
       }
     }
-  }
 }
 
 

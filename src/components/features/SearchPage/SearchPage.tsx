@@ -1,12 +1,34 @@
 import styled from 'styled-components'
-import styles from './SearchPage.module.scss'
 import React, {useEffect} from 'react'
 import {FilmCard} from './FilmCard/FilmCard'
 import {SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../app/store'
 import {GetFilmResponseType} from '../../../api/filmAPI'
-import YouTube, {Options} from 'react-youtube'
+import {getFilmData, getFilmId} from './film-reducer'
+import {styleColor} from '../../../common/stylesVariables'
+import backgroundImage from '../../../assets/images/background.png'
+
+const SearchPageWrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url(${backgroundImage});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+`
+
+const SearchPageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: ${styleColor.primaryFontColor};
+  transform: translateY(50px);
+`
 
 const Title = styled.h1`
   font-size: 64px;
@@ -62,12 +84,6 @@ const Button = styled.button`
   outline: transparent;
 `
 
-export const IMDBTitle = styled(Title)`
-  font-size: 12px;
-  line-height: 14px;
-  padding: 7px 12px;
-`
-
 type Inputs = {
     title: string;
 };
@@ -79,53 +95,27 @@ export const SearchPage = () => {
 
     const {register, handleSubmit} = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        // dispatch(getFilmId({title: data.title}))
+        dispatch(getFilmId({title: data.title}))
     }
 
     useEffect(() => {
         if (filmId) {
-            // dispatch(getFilmData({id: filmId}))
+            dispatch(getFilmData({id: filmId}))
         }
     }, [filmId, dispatch])
 
-    const videoOptions:Options = {
-        playerVars: { // https://developers.google.com/youtube/player_parameters
-            autoplay: 1,
-            controls: 0,
-            rel: 0,
-            showinfo: 0,
-            loop:1,
-            mute: 1
-        }
-    };
-
-    const _onEnd = (event:{ target: any; data: number; }) =>  {
-        event.target.playVideo();
-    }
-
-
-
     return (
-            <div className={styles.searchPage}>
-                <div className={styles.container}>
-                    <Title>Unlimited movies,<br/> TV shows, and more.</Title>
-                    <SecondTitle className={styles.secondTitle}>Watch anywhere. Cancel anytime.</SecondTitle>
-                    <Form onSubmit={handleSubmit(onSubmit)}>
-                        <Input {...register('title')} defaultValue="the queen ga"/>
-                        <Button type="submit">Search</Button>
-                    </Form>
-                    {film.title && <FilmCard film={film}/>}
-                </div>
-                <div className={styles.videoBackground}>
-                    <div className={styles.videoForeground}>
-                        <YouTube
-                            videoId="gA0nQyDZR4A"
-                            opts={videoOptions}
-                            className={styles.videoIframe}
-                            onEnd={_onEnd}
-                        />
-                    </div>
-                </div>
-            </div>
+        <SearchPageWrapper>
+            <SearchPageContainer>
+                <Title>Unlimited movies,<br/> TV shows, and more.</Title>
+                <SecondTitle>Watch anywhere. Cancel anytime.</SecondTitle>
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <Input {...register('title')} defaultValue="the queen ga"/>
+                    <Button type="submit">Search</Button>
+                </Form>
+                {film.title && <FilmCard film={film}/>}
+            </SearchPageContainer>
+            {/*<YoutubeBackground/>*/}
+        </SearchPageWrapper>
     )
 }

@@ -1,4 +1,4 @@
-@import '../../common/scss/mixins';
+@import '../../common/styles/mixins';
 
 .card {
   @include flex(column, center, center, nowrap);

@@ -4,30 +4,49 @@ import styled from 'styled-components'
 import {GetFilmResponseType} from '../../../../api/filmAPI'
 import React from 'react'
 
+const FilmCardWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 555px;
+  max-height: 171px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: rgba(17, 17, 17, 0.8);
+`
+
 export const ThirdTitle = styled.h3`
   font-size: 24px;
   font-weight: 700;
   line-height: 29px;
-  margin: 0;
+  margin-bottom: 12px;
+`
+
+const Poster = styled.div<{image: string}>`
+  background-image: url(${props => props.image});
+  width: 95px;
+  height: 141px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `
 
 type FilmCardPropsType = {
     film: GetFilmResponseType
+
 }
 
 
 export const FilmCard: React.FC<FilmCardPropsType> = ({film}) => {
 
-    const poster = {
-        backgroundImage: `url(${film.image}`
-    }
 
     return (
-        <div className={styles.filmCardContainer}>
-            <div className={styles.cardInner}>
+        <FilmCardWrapper>
                 <div>
-                <div style={poster} className={styles.image}>
-                </div>
+                <Poster image={film.image}/>
                 </div>
                 <div className={styles.aboutFilm}>
                 <div className={styles.descriptionContainer}>
@@ -45,7 +64,6 @@ export const FilmCard: React.FC<FilmCardPropsType> = ({film}) => {
                     <ImdbCard rating={film.imDbRating}/>
                 </div>
                 </div>
-            </div>
-        </div>
+        </FilmCardWrapper>
     )
 }
