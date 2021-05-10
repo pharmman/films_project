@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React, {useEffect} from 'react'
-import {FilmCard} from './FilmCard/FilmCard'
+import {FilmCard} from '../FilmCard/FilmCard'
 import {SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../app/store'
@@ -8,6 +8,10 @@ import {GetFilmResponseType} from '../../../api/filmAPI'
 import {getFilmData, getFilmId} from './film-reducer'
 import {styleColor} from '../../../common/stylesVariables'
 import backgroundImage from '../../../assets/images/background.png'
+
+type Inputs = {
+    title: string;
+};
 
 const SearchPageWrapper = styled.div`
   min-height: 100vh;
@@ -83,10 +87,6 @@ const Button = styled.button`
   border: none;
   outline: transparent;
 `
-
-type Inputs = {
-    title: string;
-};
 
 export const SearchPage = () => {
     const dispatch = useDispatch()

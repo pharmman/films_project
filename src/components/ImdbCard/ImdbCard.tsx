@@ -1,10 +1,20 @@
 import React from 'react'
-import styles from './ImdbCard.module.scss'
 import styled from 'styled-components'
 
 type ImdbCardPropsType = {
     rating: string
 }
+
+export const IMDBCardWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 87px;
+  height: 30px;
+  background-color: #FAC539;
+  border-radius: 8px;
+  color: #000000;
+`
 
 export const IMDBTitle = styled.h4`
   font-weight: 900;
@@ -17,8 +27,8 @@ export const IMDBTitle = styled.h4`
 
 export const ImdbCard: React.FC<ImdbCardPropsType> = ({rating}) => {
     return (
-        <div className={styles.card} style={{color: 'black'}}>
+        <IMDBCardWrapper>
             <IMDBTitle>IMDB {rating}</IMDBTitle>
-        </div>
+        </IMDBCardWrapper>
     )
 }
