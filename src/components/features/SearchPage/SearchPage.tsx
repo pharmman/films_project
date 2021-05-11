@@ -52,7 +52,7 @@ const SecondTitle = styled.h2`
 `
 
 const Form = styled.form`
-  max-width: 434px;
+  max-width: 555px;
   width: 100%;
   height: 50px;
   position: relative;
@@ -77,9 +77,8 @@ const Input = styled.input`
 
 const Button = styled.button`
   position: absolute;
-  top: 50%;
+  top: 0;
   right: 0;
-  transform: translateY(-50%);
   height: 50px;
   width: 120px;
   border-radius: 0 20px 20px 0;
