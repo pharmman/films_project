@@ -57,7 +57,6 @@ export const Header = () => {
             <InputWrapper>
                 <HeaderInput placeholder={'Type here smth...'}/>
             </InputWrapper>
-
         </HeaderWrapper>
     )
 }

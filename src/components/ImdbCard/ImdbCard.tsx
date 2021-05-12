@@ -3,10 +3,11 @@ import styled from 'styled-components'
 
 type ImdbCardPropsType = {
     rating: string
+    inlineProps?: boolean
 }
 
-export const IMDBCardWrapper = styled.div`
-  display: flex;
+export const IMDBCardWrapper = styled.div<{inline?: boolean}>`
+  display: ${props => props?.inline ? 'inline-flex' : "flex"};
   justify-content: center;
   align-items: center;
   width: 87px;
@@ -25,9 +26,9 @@ export const IMDBTitle = styled.h4`
 `
 
 
-export const ImdbCard: React.FC<ImdbCardPropsType> = ({rating}) => {
+export const ImdbCard: React.FC<ImdbCardPropsType> = ({rating, inlineProps}) => {
     return (
-        <IMDBCardWrapper>
+        <IMDBCardWrapper inline={inlineProps}>
             <IMDBTitle>IMDB {rating}</IMDBTitle>
         </IMDBCardWrapper>
     )

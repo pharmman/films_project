@@ -1,12 +1,14 @@
 import React from 'react'
 import './App.scss'
 import {SearchPage} from '../components/features/SearchPage/SearchPage'
-import {Header} from '../components/features/FilmPage/Header'
+import {FilmPage} from '../components/features/FilmPage/FilmPage'
 
 function App() {
     return (
-        // <SearchPage/>
-        <Header/>
+        <>
+            <SearchPage/>
+            <FilmPage/>
+        </>
     )
 }
 
