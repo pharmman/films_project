@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 import {useSelector} from 'react-redux'
-import {AppRootStateType} from '../../../app/store'
-import {SimilarFilm} from './SimilarFilm'
+import {AppRootStateType} from '../../../../app/store'
+import {SimilarFilm} from '../../SimilarFilms/SimilarFilm'
+import {FilmType} from "../../../../api/filmAPI";
 
 const MainDescriptionWrapper = styled.div`
   flex-grow: 1;
@@ -9,7 +10,7 @@ const MainDescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 60px 10% 60px 10%;
+  padding: 60px 150px;
 `
 
 const Title = styled.h2`
@@ -42,7 +43,7 @@ const SimilarFilms = styled.div`
 `
 export const MainDescription = () => {
 
-    const film = useSelector<AppRootStateType, GetFilmResponseType>(state => state.film)
+    const film = useSelector<AppRootStateType, FilmType>(state => state.film)
     const similarFilms = film.similars?.slice(0, 4)
 
     return (
@@ -54,7 +55,7 @@ export const MainDescription = () => {
             <section>
                 <SecondTitle>You may also like</SecondTitle>
                 <SimilarFilms>
-                    {similarFilms.map(f => <SimilarFilm key={f.id} film={f}/>)}
+                    {similarFilms.map(f => <SimilarFilm key={f.id} similarFilm={f}/>)}
                 </SimilarFilms>
             </section>
         </MainDescriptionWrapper>

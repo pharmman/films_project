@@ -1,30 +1,24 @@
 import styled from 'styled-components'
 import React, {useEffect} from 'react'
-import {FilmCard} from '../FilmCard/FilmCard'
+import {FilmCard} from './FilmCard/FilmCard'
 import {SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../app/store'
-import {GetFilmResponseType} from '../../../api/filmAPI'
-import {getFilmData, getFilmId} from './films-reducer'
+import {getFilmData, getFilmId} from '../FilmPage/film-reducer'
 import {styleColor} from '../../../common/stylesVariables'
-import backgroundImage from '../../../assets/images/background.png'
 import {Spinner} from "../../Preloader/Preloader";
+import {YoutubeBackground} from "./YoutubeBackground/YoutubeBackground";
+import {FilmType} from "../../../api/filmAPI";
+import {PageWrapper} from "../FilmPage/Main/FilmPage";
 
 type Inputs = {
     title: string;
 };
 
-const SearchPageWrapper = styled.div`
-  min-height: 100vh;
+const SearchPageWrapper = styled(PageWrapper)`
   padding-top: 200px;
-  display: flex;
-  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-image: url(${backgroundImage});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 `
 
 const SearchPageContainer = styled.div`
@@ -44,7 +38,7 @@ export const Title = styled.h1`
   margin-bottom: 40px;
 `
 
-const SecondTitle = styled.h2`
+export const SecondTitle = styled.h2`
   font-size: 36px;
   font-weight: 500;
   line-height: 52px;
@@ -91,7 +85,7 @@ const Button = styled.button`
   font-weight: bold;
   font-size: 18px;
   line-height: 22px;
-  color: #FEFEFE;
+  color: ${styleColor.primaryFontColor};
   background: #4EA7F9;
   border: none;
   outline: transparent;
@@ -100,22 +94,24 @@ const Button = styled.button`
 
 export const SearchPage = () => {
     const dispatch = useDispatch()
-    const filmId = useSelector<AppRootStateType, string>(state => state.film.id)
-    const film = useSelector<AppRootStateType, GetFilmResponseType>(state => state.film)
     const appLoading = useSelector<AppRootStateType, boolean>(state => state.app.loading)
 
+    //if not film that's before request
+    const filmId = useSelector<AppRootStateType, string>(state => state.film.id)
+    const film = useSelector<AppRootStateType, FilmType>(state => state.film)
+
     const {register, handleSubmit} = useForm<Inputs>()
+    //request for film id
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         dispatch(getFilmId({title: data.title}))
     }
 
+    //when film id, can request for film data
     useEffect(() => {
         if (filmId) {
             dispatch(getFilmData({id: filmId}))
         }
     }, [filmId, dispatch])
-
-
 
     return (
         <SearchPageWrapper>
@@ -124,12 +120,12 @@ export const SearchPage = () => {
                 <Title>Unlimited movies,<br/> TV shows, and more.</Title>
                 <SecondTitle>Watch anywhere. Cancel anytime.</SecondTitle>
                 <Form onSubmit={handleSubmit(onSubmit)}>
-                    <Input {...register('title')} defaultValue="the queen ga"/>
+                    <Input {...register('title')} placeholder={'Films, serials'}/>
                     <Button type="submit">Search</Button>
                 </Form>
                 {film.title && <FilmCard film={film}/>}
             </SearchPageContainer>
-            {/*<YoutubeBackground/>*/}
+            <YoutubeBackground/>
         </SearchPageWrapper>
     )
 }

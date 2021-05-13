@@ -1,13 +1,12 @@
-import {ImdbCard} from '../../ImdbCard/ImdbCard'
+import {ImdbCard} from '../../../ImdbCard/ImdbCard'
 import styled from 'styled-components'
-import {FilmType} from '../../../api/filmAPI'
+import {FilmType} from '../../../../api/filmAPI'
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import {styleColor} from "../../../common/stylesVariables";
-import {FilmDomainType} from "../SearchPage/films-reducer";
+import {backgroundCover, styleColor} from "../../../../common/stylesVariables";
 
 type FilmCardPropsType = {
-    film: FilmDomainType
+    film: FilmType
 }
 
 const FilmCardWrapper = styled.div`
@@ -23,7 +22,7 @@ const FilmCardWrapper = styled.div`
   background-color: rgba(17, 17, 17, 0.8);
 `
 
-const ThirdTitle = styled.h3`
+const Title = styled.h3`
   font-size: 24px;
   font-weight: 700;
   line-height: 29px;
@@ -35,9 +34,7 @@ const Poster = styled.div<{ image: string }>`
   width: 95px;
   height: 141px;
   border-radius: 8px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  ${backgroundCover};
 `
 
 const Wrapper = styled.div`
@@ -87,6 +84,7 @@ const FilmDescription = styled.div`
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
+  flex: 1 0 24%;
 
   &::before {
     content: '';
@@ -110,7 +108,7 @@ export const FilmCard: React.FC<FilmCardPropsType> = ({film}) => {
                 <Wrapper className={'descriptionContainer'}>
                     <div>
                         <NavLink to={'/film'}>
-                            <ThirdTitle>{film.title}</ThirdTitle>
+                            <Title>{film.title}</Title>
                         </NavLink>
                         <FilmDescription className={'genres'}>
                             <span>{film.type}</span>

@@ -1,8 +1,8 @@
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../../app/store";
+import {AppRootStateType} from "../../app/store";
 import React, {DetailedHTMLProps, HTMLAttributes} from "react";
 import {Redirect} from "react-router-dom";
-import {PATH} from "../../../app/main/routes/Pages";
+import {PATH} from "../../app/main/routes/Pages";
 
 type DivPropsType = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 type LoginRedirectPagePropsType = DivPropsType & {}

@@ -1,14 +1,7 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {filmAPI, FilmType} from '../../../api/filmAPI'
 import {setAppError, setAppLoading} from "../../../app/appReducer";
 
-export interface FilmDomainType extends FilmType {
-    filmIdReceived: boolean
-}
-
-export type FilmsStateType = {
-    [key:string]: FilmDomainType
-}
 
 export const getFilmId = createAsyncThunk('film/fetchFilmId', async (params: { title: string }, {
     dispatch,
@@ -40,7 +33,7 @@ export const getFilmData = createAsyncThunk('film/fetchFilmData', async (params:
     dispatch(setAppError({error: null}))
     try {
         const res = await filmAPI.getFilm(params.id)
-        return {film: res.data, id: params.id}
+        return {film: res.data}
     } catch (e) {
         dispatch(setAppError({error: e.message || 'Some error occurred'}))
         console.log(e?.message)
@@ -52,22 +45,24 @@ export const getFilmData = createAsyncThunk('film/fetchFilmData', async (params:
 
 const slice = createSlice({
     name: 'film',
-    initialState: {id: {filmIdReceived: false}},
-    reducers: {},
+    initialState: {} as FilmType,
+    reducers: {
+        setFilmId: ((state, action: PayloadAction<{ id: string }>) => {
+            state.id = action.payload.id
+        }),
+        setFilm: ((state, action:PayloadAction<{film:FilmType}>) => {
+            return {...state, ...action.payload.film}
+})
+    },
     extraReducers: builder => {
-        // builder.addCase(getFilmId.fulfilled, (state, action) => {
-        //     return []
-        // })
-        //     .addCase(getFilmData.fulfilled, (state, action) => {
-        //         return {...state, ...action.payload.film}
-        //     })
         builder.addCase(getFilmId.fulfilled, (state, action) => {
-            state[action.payload.filmId] = {} as FilmsStateType
+            return {...state, id: action.payload.filmId}
         })
             .addCase(getFilmData.fulfilled, (state, action) => {
-                state[action.payload.id] = action.payload.film
+                return {...state, ...action.payload.film}
             })
     }
 })
 
-export const filmsReducer = slice.reducer
+export const {setFilmId, setFilm} = slice.actions
+export const filmReducer = slice.reducer

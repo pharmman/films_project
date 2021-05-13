@@ -1,20 +1,15 @@
 import styled from 'styled-components'
-import {styleColor} from '../../../../common/stylesVariables'
-import searchIcon from '../../../../assets/images/searchButton.svg'
+import {styleColor, styledHeaderFooter} from '../../../../../common/stylesVariables'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import {HeaderInput} from "./HeaderInput";
 
 export const HeaderWrapper = styled.header`
-  min-height: 100px;
-  background-color: ${styleColor.headerBackgroundColor};
-  display: flex;
+  ${styledHeaderFooter};
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
 `
-
-
 
 const Link = styled(NavLink)`
   font-size: 24px;
