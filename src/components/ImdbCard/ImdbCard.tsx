@@ -22,7 +22,7 @@ export const IMDBTitle = styled.h4`
   text-align: center;
   font-size: 12px;
   line-height: 14px;
-  padding: 7px 12px;
+  padding: 8px 12px;
 `
 
 

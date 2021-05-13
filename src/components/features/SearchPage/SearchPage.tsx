@@ -5,9 +5,10 @@ import {SubmitHandler, useForm} from 'react-hook-form'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppRootStateType} from '../../../app/store'
 import {GetFilmResponseType} from '../../../api/filmAPI'
-import {getFilmData, getFilmId} from './film-reducer'
+import {getFilmData, getFilmId} from './films-reducer'
 import {styleColor} from '../../../common/stylesVariables'
 import backgroundImage from '../../../assets/images/background.png'
+import {Spinner} from "../../Preloader/Preloader";
 
 type Inputs = {
     title: string;
@@ -15,9 +16,10 @@ type Inputs = {
 
 const SearchPageWrapper = styled.div`
   min-height: 100vh;
+  padding-top: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background-image: url(${backgroundImage});
   background-size: cover;
@@ -26,15 +28,15 @@ const SearchPageWrapper = styled.div`
 `
 
 const SearchPageContainer = styled.div`
+  max-height: 953px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   color: ${styleColor.primaryFontColor};
-  transform: translateY(50px);
 `
 
-const Title = styled.h1`
+export const Title = styled.h1`
   font-size: 64px;
   font-weight: 900;
   line-height: 78px;
@@ -57,6 +59,10 @@ const Form = styled.form`
   height: 50px;
   position: relative;
   margin-bottom: 20px;
+
+  &.show {
+    margin-bottom: 20px;
+  }
 `
 
 const Input = styled.input`
@@ -89,12 +95,14 @@ const Button = styled.button`
   background: #4EA7F9;
   border: none;
   outline: transparent;
+  cursor: pointer;
 `
 
 export const SearchPage = () => {
     const dispatch = useDispatch()
     const filmId = useSelector<AppRootStateType, string>(state => state.film.id)
     const film = useSelector<AppRootStateType, GetFilmResponseType>(state => state.film)
+    const appLoading = useSelector<AppRootStateType, boolean>(state => state.app.loading)
 
     const {register, handleSubmit} = useForm<Inputs>()
     const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -107,8 +115,11 @@ export const SearchPage = () => {
         }
     }, [filmId, dispatch])
 
+
+
     return (
         <SearchPageWrapper>
+            {appLoading && <Spinner/>}
             <SearchPageContainer>
                 <Title>Unlimited movies,<br/> TV shows, and more.</Title>
                 <SecondTitle>Watch anywhere. Cancel anytime.</SecondTitle>

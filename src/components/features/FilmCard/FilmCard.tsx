@@ -1,10 +1,13 @@
 import {ImdbCard} from '../../ImdbCard/ImdbCard'
 import styled from 'styled-components'
-import {GetFilmResponseType} from '../../../api/filmAPI'
+import {FilmType} from '../../../api/filmAPI'
 import React from 'react'
+import {NavLink} from 'react-router-dom'
+import {styleColor} from "../../../common/stylesVariables";
+import {FilmDomainType} from "../SearchPage/films-reducer";
 
 type FilmCardPropsType = {
-    film: GetFilmResponseType
+    film: FilmDomainType
 }
 
 const FilmCardWrapper = styled.div`
@@ -40,7 +43,8 @@ const Poster = styled.div<{ image: string }>`
 const Wrapper = styled.div`
   &.aboutFilm {
     display: flex;
-    padding: 15px 20px 8px;
+    padding: 15px 0 8px 20px;
+    flex-wrap: wrap;
   }
 
   &.descriptionContainer {
@@ -49,10 +53,11 @@ const Wrapper = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    max-width: 300px;
   }
 `
 
-const FilmDescription = styled.p`
+const FilmDescription = styled.div`
   &.genres {
     font-size: 14px;
     font-weight: 400;
@@ -60,34 +65,57 @@ const FilmDescription = styled.p`
     margin-bottom: 30px;
   }
 
-  &.awards {
+  & span {
     position: relative;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 15px;
+    padding-right: 20px;
+  }
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: -15px;
-      width: 100%;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      transform: rotate(0.5turn);
-    }
+  & span:not(:last-child):after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 10px;
+    height: 16px;
+    color: white;
+    border-left: 0.5px solid ${styleColor.primaryFontColor};
+    z-index: 1;
+  }
+}
+
+&.awards {
+  position: relative;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transform: rotate(0.5turn);
+  }
 `
 
 export const FilmCard: React.FC<FilmCardPropsType> = ({film}) => {
     return (
         <FilmCardWrapper>
             <div>
-                <Poster image={film.image}/>
+                <NavLink to={'/film'}>
+                    <Poster image={film.image}/>
+                </NavLink>
             </div>
             <Wrapper className={'aboutFilm'}>
                 <Wrapper className={'descriptionContainer'}>
                     <div>
-                        <ThirdTitle>{film.title}</ThirdTitle>
+                        <NavLink to={'/film'}>
+                            <ThirdTitle>{film.title}</ThirdTitle>
+                        </NavLink>
                         <FilmDescription className={'genres'}>
-                            {film.type} | {film.genres} | {film.year}
+                            <span>{film.type}</span>
+                            <span>{film.genres}</span>
+                            <span>{film.year}</span>
                         </FilmDescription>
                     </div>
                     <FilmDescription className={'awards'}>{film.awards}</FilmDescription>

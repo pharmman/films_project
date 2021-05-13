@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux'
 import {configureStore} from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
-import {filmReducer} from '../components/features/SearchPage/film-reducer'
+import {filmsReducer} from '../components/features/SearchPage/films-reducer'
+import {appReducer} from "./appReducer";
 
 const rootReducer = combineReducers({
-    film: filmReducer
+    film: filmsReducer,
+    app: appReducer
 })
 
 export const store = configureStore({
