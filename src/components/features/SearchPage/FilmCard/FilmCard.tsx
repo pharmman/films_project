@@ -20,6 +20,7 @@ const FilmCardWrapper = styled.div`
   padding: 15px;
   border-radius: 10px;
   background-color: rgba(17, 17, 17, 0.8);
+  overflow: hidden;
 `
 
 const Title = styled.h3`
@@ -84,7 +85,6 @@ const FilmDescription = styled.div`
   font-size: 12px;
   font-weight: 400;
   line-height: 15px;
-  flex: 1 0 24%;
 
   &::before {
     content: '';
